@@ -1,4 +1,5 @@
- ListNode* reverseKGroup(ListNode* head, int k) {
+Leetcode :
+ListNode* reverseKGroup(ListNode* head, int k) {
          if(!head or !head->next or k==1){
             return head;
         }
@@ -37,4 +38,24 @@
         }
         return newhead;      
         
+    }
+    
+    GFG version:
+     struct node *reverse (struct node *head, int k)
+    { 
+         node *prev=NULL,*nextnode,*curr=head;
+         
+         int c=0;
+         while(curr and c<k){
+             nextnode=curr->next;
+             curr->next=prev;
+             prev=curr;
+             curr=nextnode;
+             c++;
+         }
+         if(nextnode!=NULL){
+             head->next=reverse(nextnode,k); //recursive call
+         }
+         return prev;
+
     }
