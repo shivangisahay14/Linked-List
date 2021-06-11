@@ -1,0 +1,28 @@
+Node* findIntersection(Node* head1, Node* head2)
+{
+    unordered_set<int>s;
+    Node *dummy=new Node(0);
+    Node *temp=dummy;
+    
+    Node *p1=head1,*p2=head2;
+    while(p1 and p2){
+        if(p1->data==p2->data){
+            Node *temp1=new Node(p1->data);
+            temp->next=temp1;
+            temp=temp->next;
+            p1=p1->next;
+            p2=p2->next;
+        }
+        else{
+            if(p1->data<p2->data){
+                p1=p1->next;
+            }
+            else{
+                p2=p2->next;
+            }
+        }
+    }
+    return dummy->next;
+    
+    // Your Code Here
+}
