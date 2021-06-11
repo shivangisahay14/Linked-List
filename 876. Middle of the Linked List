@@ -1,0 +1,22 @@
+ ListNode* middleNode(ListNode* head) {
+        
+        if(head->next==NULL) return head;
+        int count=0;
+        ListNode *p=head;
+        while(p){
+            count++;
+            p=p->next;
+        }
+         ListNode *s=head,*f=head;
+        while(f->next and f->next->next){
+            s=s->next;
+            f=f->next->next;
+        }
+        if(count%2==0){
+            return s->next;
+        }
+        else{
+            return s;
+        }
+        
+    }
