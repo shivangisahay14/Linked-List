@@ -1,0 +1,59 @@
+class Solution{
+  public:
+    Node* midNode(Node* head){
+        if(!head or !head->next) return head;
+        Node *s=head,*f=head;
+        while(f->next and f->next->next){
+            s=s->next;
+            f=f->next->next;
+        }
+        return s;
+        
+    }
+    Node* mergeTwoLL(Node* l1,Node *l2){
+        if(!l1 or !l2) return !l1 ? l2 : l1;
+        
+        Node *c1=l1,*c2=l2;
+        Node *dummy=new Node(0);
+        Node *temp=dummy;
+        
+        while(c1 and c2){
+        if(c1->data<c2->data){
+            temp->next=c1;
+            temp=temp->next;
+            c1=c1->next;
+        }
+        else{
+            temp->next=c2;
+            temp=temp->next;
+            c2=c2->next;
+        }
+        if(c1) {
+            temp->next = c1;
+        }
+        else if(c2) {
+            temp->next = c2;
+        }
+        
+        }
+        return dummy->next;
+    }
+    
+    //Function to sort the given linked list using Merge Sort.
+    Node* mergeSort(Node* head) {
+        
+        if(!head or !head->next) return head;
+        Node *mid=midNode(head);
+        Node *newHead=mid->next;
+        mid->next=NULL;
+        
+        Node *l1=mergeSort(head);
+        Node *l2=mergeSort(newHead);
+        
+        
+        Node *ans=mergeTwoLL(l1,l2);
+        return ans;
+        
+        // your code here
+    }
+};
