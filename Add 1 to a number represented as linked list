@@ -1,0 +1,28 @@
+Node* addOne(Node *head) 
+    {
+        head=reverseList(head);
+        bool f=true;
+        Node *p=head;
+        while(p and f==true){
+            if(p->data==9 and p->next==NULL){
+                Node *temp = new Node(0);
+                temp->next=head;
+                head=temp;
+                p->data=1;
+                p=p->next;
+            }
+            else if(p->data==9){
+                p->data=0;
+                p=p->next;
+                
+            }
+            else{
+                p->data+=1;
+                p=p->next;
+                f=false;
+            }
+        }
+        head=reverseList(head);
+        return head;
+       
+    }
