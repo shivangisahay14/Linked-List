@@ -1,0 +1,32 @@
+Node* flatten(Node* head) {
+        Node *cur = head;
+        Node *tail = head;
+        stack<Node*> st ;
+        while(cur != nullptr) {
+            if(cur->child != nullptr) {
+                Node *child = cur->child;
+                if(cur->next != nullptr){ 
+                    st.push(cur->next);
+                    cur->next->prev = nullptr; 
+                }
+                cur->next = child;
+                child->prev = cur;
+                cur->child = nullptr;
+            }
+            tail = cur;
+            cur = cur->next;
+        }
+        while(!st.empty()) {
+            cur = st.top();
+            st.pop();
+            tail->next = cur;
+            cur->prev = tail;
+            while(cur != nullptr) {
+                tail = cur;
+                cur = cur->next;
+            }
+        }
+        return head;
+        
+        
+    }
