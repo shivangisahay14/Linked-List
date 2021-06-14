@@ -1,0 +1,72 @@
+Using O(1) space:
+class Solution {
+public:
+    void copy1(Node *head){
+    
+    Node *curr=head;
+    while(curr){
+        Node *forw=curr->next;
+        Node *node=new Node(curr->val);
+        curr->next=node;
+        node->next=forw;
+        curr=forw;
+    }
+    
+}
+void copyRandomPointers(Node *head){
+    Node *curr=head;
+    while(curr and curr->next){
+        
+        if(curr->random){
+            curr->next->random=curr->random->next;
+        }
+        
+        curr=curr->next->next;
+    }
+    
+}
+Node *extractDeepCopy(Node *head){
+    
+    Node *curr=head;
+    Node *dummy=new Node(-1);
+    Node *prev=dummy;
+    
+    while(curr!=NULL){
+        prev->next=curr->next;
+        prev=prev->next;
+        
+        curr->next=curr->next->next;
+        curr=curr->next;
+    }
+    return dummy->next;
+    
+}
+    Node* copyRandomList(Node* head) {
+        copy1(head);
+        copyRandomPointers(head);
+    
+    
+    return extractDeepCopy(head);
+        
+    }
+};
+
+
+Using O(n) space-HashMap:
+
+ Node* copyRandomList(Node* head) {
+        unordered_map<Node*, Node*> mp;
+        Node* dummy = head;
+        while (dummy) {
+            Node* node = new Node(dummy->val);
+            mp[dummy] = node;
+            dummy = dummy->next;
+        }
+        dummy = head;
+        while (dummy) {
+            mp[dummy]->next = mp[dummy->next];
+            mp[dummy]->random = mp[dummy->random];
+            dummy = dummy->next;
+        }
+        return mp[head];
+    }
