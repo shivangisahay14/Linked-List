@@ -1,0 +1,49 @@
+Node* reverseDLL(Node * head)
+{
+    Node *temp = NULL;
+    Node *current = head;
+     
+    /* swap next and prev for all nodes of
+    doubly linked list */
+    while (current != NULL)
+    {
+        temp = current->prev;
+        current->prev = current->next;
+        current->next = temp;            
+        current = current->prev;
+    }
+     
+    /* Before changing the head, check for the cases like empty
+        list and list with only one node */
+    if(temp != NULL )
+        head = temp->prev;
+        
+    return head;
+}
+
+
+
+
+Node* reverseDLL(Node * head)
+{
+    Node *p=head;
+    if(p==NULL or p->next==NULL){
+        return head;
+    }
+    
+    Node *q=p->next;
+    p->next==NULL;
+    p->prev=q;
+    
+    while(q!=NULL){
+    
+    q->prev=q->next;
+    q->next=p;
+    p=q;
+    q=q->prev;
+    }
+    head=p;
+    
+    return head;
+    //Your code here
+}
