@@ -1,0 +1,83 @@
+1st approach : take 1st list as reference and keep sorting one by one
+Node* mergeKLists(Node* arr[], int last)
+{
+    // repeat until only one list is left
+    while (last != 0) {
+        int i = 0, j = last;
+
+        // (i, j) forms a pair
+        while (i < j) {
+            // merge List i with List j and store
+            // merged list in List i
+            arr[i] = SortedMerge(arr[i], arr[j]);
+
+            // consider next pair
+            i++, j--;
+
+            // If all pairs are merged, update last
+            if (i >= j)
+                last = j;
+        }
+    }
+
+    return arr[0];
+}
+
+2nd approach : Divide and Conquer
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        
+        if(!l1 or !l2) return !l1 ? l2 : l1;
+        
+        
+        ListNode *c1=l1,*c2=l2;
+        ListNode *dummy=new ListNode(0);
+        ListNode *temp=dummy;
+        
+        while(c1 and c2){
+        if(c1->val<c2->val){
+            temp->next=c1;
+            temp=temp->next;
+            c1=c1->next;
+        }
+        else{
+            temp->next=c2;
+            temp=temp->next;
+            c2=c2->next;
+        }
+        if(c1) {
+            temp->next = c1;
+        }
+        else if(c2) {
+            temp->next = c2;
+        }
+        
+        }
+        return dummy->next;      
+        
+        }
+
+    ListNode* DivandConq(vector<ListNode*>& lists, int low, int high){
+        int mid;
+        ListNode *a, *b;
+        
+        if (low > high)
+            return NULL;
+        if(low == high)
+            return lists[low];
+        
+        a = b = NULL;
+        mid = low + (high - low) / 2;
+        a = DivandConq(lists,low,mid);
+        b = DivandConq(lists,mid + 1,high);
+        
+        return mergeTwoLists(a,b);
+    }
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        
+        if(lists.size()==0) return NULL;
+        
+        return DivandConq(lists,0,lists.size()-1);      
+         }
+};
