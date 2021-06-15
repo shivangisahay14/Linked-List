@@ -1,0 +1,21 @@
+Node *compute(Node *head)
+    {
+        head=reverseList(head);
+        int m=head->data;
+        Node *prev=NULL,*curr=head;
+        while(curr){
+            if(curr->data>=m){
+                m=curr->data;
+                prev=curr;
+                curr=curr->next;
+            }
+            else{
+                prev->next=curr->next;
+                curr=prev->next;
+            }
+        }
+        curr=reverseList(head);
+        return curr;
+        
+        // your code goes here
+    }
