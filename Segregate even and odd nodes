@@ -1,0 +1,28 @@
+Node* divide(int N, Node *head){
+        if(!head or !head->next) return head;
+        
+        Node *dummyeven=new Node(-1);
+        Node *dummyodd=new Node(-1);
+        Node *etail=dummyeven,*otail=dummyodd,*curr=head;
+        while(curr){
+            if((curr->data%2) !=0){
+                otail->next=curr;
+                otail=otail->next;
+            }
+            
+            else{
+                etail->next=curr;
+                etail=etail->next;
+                
+            }
+            curr=curr->next;
+        }
+        
+        
+        etail->next=dummyodd->next;
+        otail->next=NULL;
+        
+        
+        return dummyeven->next;
+        
+    }
